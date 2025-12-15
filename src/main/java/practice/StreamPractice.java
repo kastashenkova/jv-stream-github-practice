@@ -37,8 +37,7 @@ public class StreamPractice {
     public Double getOddNumsAverage(List<Integer> numbers) {
         return IntStream.range(0, numbers.size())
                 .map(i -> i % 2 != 0 ? numbers.get(i) - 1 : numbers.get(i))
-                .mapToDouble(num
-                        -> Double.parseDouble(String.valueOf(num)))
+                .mapToDouble(num -> (double) num)
                 .filter(n -> n % 2 != 0)
                 .average()
                 .orElseThrow(()
@@ -113,9 +112,8 @@ public class StreamPractice {
      * parametrized with Candidate in CandidateValidator.
      */
     public List<String> validateCandidates(List<Candidate> candidates) {
-        CandidateValidator validator = new CandidateValidator();
         return candidates.stream()
-                .filter(validator::test)
+                .filter(new CandidateValidator())
                 .map(Candidate::getName)
                 .sorted()
                 .collect(Collectors.toList());
