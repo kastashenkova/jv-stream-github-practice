@@ -43,7 +43,8 @@ public class StreamPractice {
                 .average()
                 .orElseThrow(()
                         -> new NoSuchElementException(
-                                "Can't get min value from list: " + numbers));
+                                "Can't get average value from odd numbers in the list: "
+                                        + numbers));
     }
 
     /**
@@ -112,11 +113,9 @@ public class StreamPractice {
      * parametrized with Candidate in CandidateValidator.
      */
     public List<String> validateCandidates(List<Candidate> candidates) {
+        CandidateValidator validator = new CandidateValidator();
         return candidates.stream()
-                .filter(CandidateValidator.validateAge())
-                .filter(CandidateValidator.validateVote())
-                .filter(CandidateValidator.validateNationality())
-                .filter(CandidateValidator.validatePeriodsInUkr())
+                .filter(validator::test)
                 .map(Candidate::getName)
                 .sorted()
                 .collect(Collectors.toList());
